@@ -8,7 +8,7 @@ import ChangeStudentsModal from "./ChangeStudentsModal";
 const SchoolClasses = () => {
   const [allSchoolClasses, setAllSchoolClasses] = useState([]);
   const [isShowSchoolClassModal, setIsShowSchoolClassModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const [showChangeTeacherModal, setShowChangeTeacherModal] = useState(false);
   const [showChangeStudentsModal, setShowChangeStudentsModal] = useState(false);
@@ -21,11 +21,11 @@ const SchoolClasses = () => {
     teacher: {},
   });
 
-  const fetchAllSchoolClasses = () => {
-    axios
+  const fetchAllSchoolClasses = async () => {
+    await axios
       .get("http://localhost:9090/api/classes")
       .then((res) => setAllSchoolClasses(res.data))
-      .then(setIsLoading(false));
+      setIsLoading(false);
   };
 
 
@@ -116,11 +116,13 @@ const SchoolClasses = () => {
 
   
   useEffect(() => {
+    setIsLoading(true)
     fetchAllSchoolClasses();
   }, []);
 
   useEffect(() => {
-      fetchAllSchoolClasses();
+    setIsLoading(true)
+    fetchAllSchoolClasses();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showChangeStudentsModal, showChangeTeacherModal, isShowSchoolClassModal]);
 

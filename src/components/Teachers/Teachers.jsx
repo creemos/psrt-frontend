@@ -20,7 +20,7 @@ const Teachers = () => {
     subject: "",
   });
 
-  const filtrateTeachers = (array) => {
+  const filtrateTeachers = async (array) => {
     if (filter !== "") {
       const filtratedTeachers = array.filter((teacher) => {
         return (
@@ -43,6 +43,7 @@ const Teachers = () => {
   };
 
   const deleteTeacher = async (id) => {
+    setIsLoading(true)
     await axios.put(`http://localhost:9090/api/classes/find_relation`, id, {
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -52,9 +53,9 @@ const Teachers = () => {
     await axios
       .delete(`http://localhost:9090/api/teachers/${id}`)
       .then((res) => {
-        fetchTeachers();
         console.log(`User with no.${id} deleted!`);
       });
+    fetchTeachers();
   };
 
   const editTeacher = (id) => {
@@ -67,9 +68,10 @@ const Teachers = () => {
     fetchTeachers();
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    setIsLoading(true)
     if (!editMode) {
-      axios
+      await axios
         .post("http://localhost:9090/api/teachers", data, {
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -81,7 +83,7 @@ const Teachers = () => {
         )
         .catch((err) => console.log(err));
     } else {
-      axios.put(
+      await axios.put(
         `http://localhost:9090/api/teachers/${currentTeacher.id}`,
         data,
         {
@@ -93,6 +95,7 @@ const Teachers = () => {
       );
       setEditMode(false);
     }
+    await fetchTeachers()
     setShowTeacherModal(false);
   };
 
@@ -108,7 +111,7 @@ const Teachers = () => {
   useEffect(() => {
     fetchTeachers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter, onSubmit]);
+  }, [filter, sort]);
 
   return (
     <div className="w-3/4 flex flex-col items-center justify-between">

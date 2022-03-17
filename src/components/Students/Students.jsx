@@ -5,11 +5,11 @@ import StudentModal from "./StudentModal";
 
 const Students = () => {
   const [allStudents, setAllStudents] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [showStudentModal, setShowStudentModal] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [filter, setFilter] = useState("");
-  const [sort, setSort] = useState("firstname")
+  const [sort, setSort] = useState("firstname");
   const [currentStudent, setCurrentStudent] = useState({
     studentId: "",
     firstname: "",
@@ -18,36 +18,37 @@ const Students = () => {
     gender: "",
   });
 
-  const fetchStudents = () => {
-    setIsLoading(true);
-    axios
-      .get("http://localhost:9090/api/students")
-      .then((res) => {
-        filtrateStudents(res.data)
-      })
-      .then(setIsLoading(false));
+  const fetchStudents = async () => {
+    await axios.get("http://localhost:9090/api/students").then((res) => {
+      filtrateStudents(res.data);
+    });
+    setIsLoading(false);
   };
 
   const filtrateStudents = (array) => {
     if (filter !== "") {
       const filtratedStudents = array.filter((student) => {
-        return student.firstname.toLowerCase().includes(filter) || student.patronymic.toLowerCase().includes(filter) || student.lastname.toLowerCase().includes(filter);
+        return (
+          student.firstname.toLowerCase().includes(filter) ||
+          student.patronymic.toLowerCase().includes(filter) ||
+          student.lastname.toLowerCase().includes(filter)
+        );
       });
       setAllStudents(filtratedStudents);
     } else {
-      setAllStudents(array)
+      setAllStudents(array);
     }
   };
 
-  const deleteStudent = (id) => {
-    axios
+  const deleteStudent = async (id) => {
+    setIsLoading(true);
+    await axios
       .delete(`http://localhost:9090/api/students/${id}`)
       .then((res) => {
         fetchStudents();
         console.log(`User with no.${id} deleted!`);
-      })
+      });
   };
-
 
   const editStudent = (id) => {
     console.log(`Select student no.${id}`);
@@ -58,14 +59,8 @@ const Students = () => {
       .then(setShowStudentModal(true));
   };
 
-  useEffect(() => {
-    if (showStudentModal === false) {
-      fetchStudents();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showStudentModal, filter, sort]);
-
   const onSubmit = async (data) => {
+    setIsLoading(true);
     if (!editMode) {
       await axios
         .post("http://localhost:9090/api/students", data, {
@@ -93,13 +88,21 @@ const Students = () => {
       );
       setEditMode(false);
     }
+    await fetchStudents();
     setShowStudentModal(false);
   };
 
   const searchHandler = (e) => {
     e.preventDefault();
-    setFilter(e.target.value)
+    setFilter(e.target.value);
   };
+
+  useEffect(() => {
+    if (showStudentModal === false) {
+      fetchStudents();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter, sort]);
 
   return (
     <div className="w-3/4 flex flex-col items-center justify-between">
@@ -116,38 +119,63 @@ const Students = () => {
           <table className="text-center border-2 mt-5">
             <thead className="bg-slate-400">
               <tr>
-                <th className="cursor-pointer" onClick={() => setSort("firstname")}>Имя</th>
-                <th className="cursor-pointer" onClick={() => setSort("patronymic")}>Отчество</th>
-                <th className="cursor-pointer" onClick={() => setSort("lastname")}>Фамилия</th>
+                <th
+                  className="cursor-pointer"
+                  onClick={() => setSort("firstname")}
+                >
+                  Имя
+                </th>
+                <th
+                  className="cursor-pointer"
+                  onClick={() => setSort("patronymic")}
+                >
+                  Отчество
+                </th>
+                <th
+                  className="cursor-pointer"
+                  onClick={() => setSort("lastname")}
+                >
+                  Фамилия
+                </th>
                 <th>Пол</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {allStudents.sort((a, b) => a[sort] > b[sort]? 1 : -1).map((student) => {
-                return (
-                  <tr key={student.studentId}>
-                    <td className="border border-slate-300">{student.firstname}</td>
-                    <td className="border border-slate-300">{student.patronymic}</td>
-                    <td className="border border-slate-300">{student.lastname}</td>
-                    <td className="border border-slate-300">{student.gender}</td>
-                    <td className="border border-slate-300">
-                      <button
-                        className="self-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                        onClick={() => editStudent(student.studentId)}
-                      >
-                        Изменить
-                      </button>
-                      <button
-                        className="self-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                        onClick={() => deleteStudent(student.studentId)}
-                      >
-                        Удалить
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+              {allStudents
+                .sort((a, b) => (a[sort] > b[sort] ? 1 : -1))
+                .map((student) => {
+                  return (
+                    <tr key={student.studentId}>
+                      <td className="border border-slate-300">
+                        {student.firstname}
+                      </td>
+                      <td className="border border-slate-300">
+                        {student.patronymic}
+                      </td>
+                      <td className="border border-slate-300">
+                        {student.lastname}
+                      </td>
+                      <td className="border border-slate-300">
+                        {student.gender}
+                      </td>
+                      <td className="border border-slate-300">
+                        <button
+                          className="self-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                          onClick={() => editStudent(student.studentId)}
+                        >
+                          Изменить
+                        </button>
+                        <button
+                          className="self-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                          onClick={() => deleteStudent(student.studentId)}
+                        >
+                          Удалить
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
           <button
