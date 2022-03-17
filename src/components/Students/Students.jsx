@@ -19,7 +19,7 @@ const Students = () => {
   });
 
   const fetchStudents = async () => {
-    await axios.get("http://localhost:9090/api/students").then((res) => {
+    await axios.get("https://psrt-app.herokuapp.com/api/students").then((res) => {
       filtrateStudents(res.data);
     });
     setIsLoading(false);
@@ -43,7 +43,7 @@ const Students = () => {
   const deleteStudent = async (id) => {
     setIsLoading(true);
     await axios
-      .delete(`http://localhost:9090/api/students/${id}`)
+      .delete(`https://psrt-app.herokuapp.com/api/students/${id}`)
       .then((res) => {
         fetchStudents();
         console.log(`User with no.${id} deleted!`);
@@ -54,7 +54,7 @@ const Students = () => {
     console.log(`Select student no.${id}`);
     setEditMode(true);
     axios
-      .get(`http://localhost:9090/api/students/${id}`)
+      .get(`https://psrt-app.herokuapp.com/api/students/${id}`)
       .then((res) => setCurrentStudent(res.data))
       .then(setShowStudentModal(true));
   };
@@ -63,7 +63,7 @@ const Students = () => {
     setIsLoading(true);
     if (!editMode) {
       await axios
-        .post("http://localhost:9090/api/students", data, {
+        .post("https://psrt-app.herokuapp.com/api/students", data, {
           headers: {
             "Access-Control-Allow-Origin": "*",
             "content-type": "application/json",
@@ -77,7 +77,7 @@ const Students = () => {
         .catch((err) => console.log(err));
     } else {
       await axios.put(
-        `http://localhost:9090/api/students/${currentStudent.studentId}`,
+        `https://psrt-app.herokuapp.com/api/students/${currentStudent.studentId}`,
         data,
         {
           headers: {

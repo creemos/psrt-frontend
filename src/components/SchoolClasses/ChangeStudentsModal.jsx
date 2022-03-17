@@ -7,16 +7,16 @@ const ChangeStudentsModal = ({ data, setShowChangeStudentsModal }) => {
 
   const updateFrames = async () => {
     await axios
-      .get(`http://localhost:9090/api/classes/${data.id}`)
+      .get(`https://psrt-app.herokuapp.com/api/classes/${data.id}`)
       .then((res) => setSchoolClassStudents(res.data.students));
     await axios
-      .get(`http://localhost:9090/api/students/available_students`)
+      .get(`https://psrt-app.herokuapp.com/api/students/available_students`)
       .then((res) => setAvailableStudents(res.data));
   };
 
   const addToSchoolClass = async (student) => {
     await axios.put(
-      `http://localhost:9090/api/classes/${data.id}/addstudent`,
+      `https://psrt-app.herokuapp.com/api/classes/${data.id}/addstudent`,
       student,
       {
         headers: {
@@ -33,7 +33,7 @@ const ChangeStudentsModal = ({ data, setShowChangeStudentsModal }) => {
     console.log(updatedStudents)
     
     await axios.put(
-      `http://localhost:9090/api/classes/${data.id}/deletestudent`,
+      `https://psrt-app.herokuapp.com/api/classes/${data.id}/deletestudent`,
       updatedStudents,
       {
         headers: {

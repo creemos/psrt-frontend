@@ -37,21 +37,21 @@ const Teachers = () => {
   };
 
   const fetchTeachers = async () => {
-    await axios.get("http://localhost:9090/api/teachers").then((res) => {
+    await axios.get("https://psrt-app.herokuapp.com/api/teachers").then((res) => {
       filtrateTeachers(res.data);
     });
   };
 
   const deleteTeacher = async (id) => {
     setIsLoading(true)
-    await axios.put(`http://localhost:9090/api/classes/find_relation`, id, {
+    await axios.put(`https://psrt-app.herokuapp.com/api/classes/find_relation`, id, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "content-type": "application/json",
       },
     });
     await axios
-      .delete(`http://localhost:9090/api/teachers/${id}`)
+      .delete(`https://psrt-app.herokuapp.com/api/teachers/${id}`)
       .then((res) => {
         console.log(`User with no.${id} deleted!`);
       });
@@ -62,7 +62,7 @@ const Teachers = () => {
     console.log(`Select teacher no.${id}`);
     setEditMode(true);
     axios
-      .get(`http://localhost:9090/api/teachers/${id}`)
+      .get(`https://psrt-app.herokuapp.com/api/teachers/${id}`)
       .then((res) => setCurrentTeacher(res.data))
       .then(setShowTeacherModal(true));
     fetchTeachers();
@@ -72,7 +72,7 @@ const Teachers = () => {
     setIsLoading(true)
     if (!editMode) {
       await axios
-        .post("http://localhost:9090/api/teachers", data, {
+        .post("https://psrt-app.herokuapp.com/api/teachers", data, {
           headers: {
             "Access-Control-Allow-Origin": "*",
             "content-type": "application/json",
@@ -84,7 +84,7 @@ const Teachers = () => {
         .catch((err) => console.log(err));
     } else {
       await axios.put(
-        `http://localhost:9090/api/teachers/${currentTeacher.id}`,
+        `https://psrt-app.herokuapp.com/api/teachers/${currentTeacher.id}`,
         data,
         {
           headers: {

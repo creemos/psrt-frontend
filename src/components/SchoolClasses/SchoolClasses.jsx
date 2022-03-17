@@ -23,7 +23,7 @@ const SchoolClasses = () => {
 
   const fetchAllSchoolClasses = async () => {
     await axios
-      .get("http://localhost:9090/api/classes")
+      .get("https://psrt-app.herokuapp.com/api/classes")
       .then((res) => setAllSchoolClasses(res.data))
       setIsLoading(false);
   };
@@ -35,7 +35,7 @@ const SchoolClasses = () => {
     setEditMode(true);
 
     axios
-      .get(`http://localhost:9090/api/classes/${id}`)
+      .get(`https://psrt-app.herokuapp.com/api/classes/${id}`)
       .then((res) => setCurrentSchoolClass(res.data))
       .then(console.log(currentSchoolClass))
       .then(setIsShowSchoolClassModal(true));
@@ -44,7 +44,7 @@ const SchoolClasses = () => {
   const deleteSchoolClass = async (id) => {
     setIsLoading(true);
     
-    await axios.delete(`http://localhost:9090/api/classes/${id}`);
+    await axios.delete(`https://psrt-app.herokuapp.com/api/classes/${id}`);
 
     console.log(`Class with no.${id} deleted!`);
     await fetchAllSchoolClasses();
@@ -55,7 +55,7 @@ const SchoolClasses = () => {
     console.log(data);
     if (!editMode) {
       await axios
-        .post("http://localhost:9090/api/classes", data, {
+        .post("https://psrt-app.herokuapp.com/api/classes", data, {
           headers: {
             "Access-Control-Allow-Origin": "*",
             "content-type": "application/json",
@@ -69,7 +69,7 @@ const SchoolClasses = () => {
         .catch((err) => console.log(err));
     } else {
       await axios.put(
-        `http://localhost:9090/api/classes/${currentSchoolClass.id}`,
+        `https://psrt-app.herokuapp.com/api/classes/${currentSchoolClass.id}`,
         { ...data, teacher: currentSchoolClass.teacher },
         {
           headers: {
@@ -86,7 +86,7 @@ const SchoolClasses = () => {
   const onChangeTeacher = async (data) => {
     await axios
       .put(
-        `http://localhost:9090/api/classes/${currentSchoolClass.id}/addteacher`,
+        `https://psrt-app.herokuapp.com/api/classes/${currentSchoolClass.id}/addteacher`,
         data.teacher,
         {
           headers: {
@@ -104,7 +104,7 @@ const SchoolClasses = () => {
 
   const editTeacher = (classId) => {
     axios
-      .get(`http://localhost:9090/api/classes/${classId}`)
+      .get(`https://psrt-app.herokuapp.com/api/classes/${classId}`)
       .then((res) => setCurrentSchoolClass(res.data))
       .then(setShowChangeTeacherModal(true));
   };

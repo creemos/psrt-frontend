@@ -12,10 +12,10 @@ const ChangeTeacherModal = ({ onSubmit, data }) => {
 
   const fetchData = async () => {
     await axios
-      .get("http://localhost:9090/api/teachers")
+      .get("https://psrt-app.herokuapp.com/api/teachers")
       .then((res) => setAllTeachers(res.data));
     await axios
-      .get("http://localhost:9090/api/classes/with_teachers")
+      .get("https://psrt-app.herokuapp.com/api/classes/with_teachers")
       .then((res) => setAllClassesWithTeacher(res.data))
       .then(() => {
         const newArr = [];
