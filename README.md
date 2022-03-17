@@ -1,1 +1,1 @@
-# psrt-frontend
+# Spring + React + Posgresql + Tailwind (?)
