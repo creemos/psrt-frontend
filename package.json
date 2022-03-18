@@ -43,5 +43,5 @@
     "postcss": "^8.4.6",
     "tailwindcss": "^3.0.23"
   },
-  "proxy": "http://localhost:9090"
+  "proxy": "https://psrt-app.herokuapp.com"
 }
