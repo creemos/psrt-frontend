@@ -1,16 +1,19 @@
 import { useForm } from "react-hook-form";
 
 const StudentModal = ({ onSubmit, data, toBack }) => {
+  console.log(data)
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: data
+  });
   return (
     <form className="mt-5 border-1 flex flex-col w-1/2" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col">
         <input
-          placeholder={data.firstname ? data.firstname : "Имя"}
+          placeholder="Имя"
           {...register("firstname", {
             required: true,
             pattern: /^[a-zA-Zа-яА-Я]+$/i,
@@ -21,7 +24,7 @@ const StudentModal = ({ onSubmit, data, toBack }) => {
       </div>
       <div className="flex flex-col">
         <input
-          placeholder={data.patronymic ? data.patronymic : "Отчество"}
+          placeholder="Отчество"
           {...register("patronymic", {
             required: true,
             pattern: /^[a-zA-Zа-яА-Я]+$/i,
@@ -34,7 +37,7 @@ const StudentModal = ({ onSubmit, data, toBack }) => {
       </div>
       <div className="flex flex-col">
         <input
-          placeholder={data.lastname ? data.lastname : "Фамилия"}
+          placeholder="Фамилия"
           {...register("lastname", { required: true, pattern: /^[a-zA-Zа-яА-Я]+$/i })}
           className="m-2 p-2 border border-1"
         />
