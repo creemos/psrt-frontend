@@ -1,6 +1,6 @@
 const Greetings = () => {
   return (
-    <div>
+    <div className="pl-10">
       <h2 className="font-bold text-2xl">Задание:</h2>
       <div>
         <p className="font-bold text-xl">Необходимо написать WEB приложение по учету классов в школе. </p>

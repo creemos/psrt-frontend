@@ -133,11 +133,11 @@ const SchoolClasses = () => {
   }, [currentSchoolClass, isShowSchoolClassModal]);
 
   return (
-    <div className="w-3/4 flex flex-col items-center justify-between">
+    <div className="w-3/4 flex flex-col items-center justify-between pl-10">
       {isLoading ? (
         <Loader />
       ) : isShowSchoolClassModal ? (
-        <SchoolClassModal onSubmit={onSubmit} data={currentSchoolClass}/>
+        <SchoolClassModal onSubmit={onSubmit} data={currentSchoolClass} toBack={setIsShowSchoolClassModal}/>
       ) : showChangeTeacherModal ? (
         <ChangeTeacherModal
           onSubmit={onChangeTeacher}

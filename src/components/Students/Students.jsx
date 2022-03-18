@@ -105,7 +105,7 @@ const Students = () => {
   }, [filter, sort]);
 
   return (
-    <div className="w-3/4 flex flex-col items-center justify-between">
+    <div className="w-3/4 flex flex-col items-center justify-between pl-10">
       {isLoading ? (
         <Loader />
       ) : showStudentModal === false ? (
@@ -186,7 +186,7 @@ const Students = () => {
           </button>
         </div>
       ) : (
-        <StudentModal onSubmit={onSubmit} data={currentStudent} />
+        <StudentModal onSubmit={onSubmit} data={currentStudent} toBack={setShowStudentModal}/>
       )}
     </div>
   );
