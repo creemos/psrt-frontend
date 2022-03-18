@@ -33,6 +33,16 @@ const NavBar = () => {
           Классы
         </NavLink>
       </div>
+      <div className="m-5 text-xl w-36">
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive ? "bg-lime-200 font-bold" : ""
+          }
+        >
+          О приложении
+        </NavLink>
+      </div>
     </div>
   );
 };

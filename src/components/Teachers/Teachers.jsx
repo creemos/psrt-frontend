@@ -24,9 +24,9 @@ const Teachers = () => {
     if (filter !== "") {
       const filtratedTeachers = array.filter((teacher) => {
         return (
-          teacher.firstname.toLowerCase().includes(filter) ||
-          teacher.patronymic.toLowerCase().includes(filter) ||
-          teacher.lastname.toLowerCase().includes(filter)
+          teacher.firstname.toLowerCase().includes(filter.toLowerCase()) ||
+          teacher.patronymic.toLowerCase().includes(filter.toLowerCase()) ||
+          teacher.lastname.toLowerCase().includes(filter.toLowerCase())
         );
       });
       setAllTeachers(filtratedTeachers);
