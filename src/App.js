@@ -4,6 +4,7 @@ import Teachers from "./components/Teachers/Teachers";
 import Students from "./components/Students/Students";
 import NavBar from './components/NavBar/NavBar';
 import SchoolClasses from "./components/SchoolClasses/SchoolClasses";
+import Greetings from "./components/Greetings/Greetings";
 
 function App() {
   return (
@@ -14,12 +15,12 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/teachers" element={<Teachers />}>
-            
           </Route>
           <Route path="/students" element={<Students />}>
-            
           </Route>
-          <Route path="/classes" element={<SchoolClasses />}></Route>
+          <Route path="/classes" element={<SchoolClasses />}>
+          </Route>
+          <Route path="/" element={<Greetings />}></Route>
         </Routes>
       </div>
     </div>
