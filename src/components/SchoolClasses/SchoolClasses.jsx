@@ -123,9 +123,8 @@ const SchoolClasses = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showChangeStudentsModal, showChangeTeacherModal, isShowSchoolClassModal]);
 
-
   useEffect(() => {
-    if (!isShowSchoolClassModal) {
+    if (!isShowSchoolClassModal && !showChangeTeacherModal && !showChangeStudentsModal) {
       setCurrentSchoolClass({
         id: "",
         code: "",
@@ -134,7 +133,7 @@ const SchoolClasses = () => {
         teacher: {},
       });
     }
-  }, [isShowSchoolClassModal]);
+  }, [showChangeTeacherModal, isShowSchoolClassModal, showChangeStudentsModal]);
 
   return (
     <div className="w-3/4 flex flex-col items-center justify-between pl-10">

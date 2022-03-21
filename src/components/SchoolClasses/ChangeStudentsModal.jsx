@@ -37,7 +37,6 @@ const ChangeStudentsModal = ({ data, setShowChangeStudentsModal }) => {
     const updatedStudents = schoolClassStudents.filter(
       (item) => item === student
     );
-    console.log(updatedStudents);
 
     await axios.put(
       `https://psrt-app.herokuapp.com/api/classes/${data.id}/deletestudent`,
