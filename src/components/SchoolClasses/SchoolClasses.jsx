@@ -229,9 +229,9 @@ const SchoolClasses = () => {
                           </button>
                         </ul>
                       </td>
-                      <td className="border border-slate-300">
+                      <td className="border border-slate-300 w-1/5">
                         <button
-                          className="self-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                          className="self-center bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded mr-2"
                           onClick={() => {
                             editSchoolClass(schoolClass.id);
                           }}
@@ -239,7 +239,7 @@ const SchoolClasses = () => {
                           Изменить
                         </button>
                         <button
-                          className="self-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                          className="self-center bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded"
                           onClick={() => {
                             deleteSchoolClass(schoolClass.id);
                           }}

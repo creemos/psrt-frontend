@@ -26,7 +26,7 @@ const SchoolClassModal = ({ onSubmit, data, toBack }) => {
       )}
       <input
         placeholder={"Мнемокод"}
-        {...register("code", { required: true, pattern: /^[A-Za-zА-Яа-я]+$/i })}
+        {...register("code", { required: true, pattern: /^[A-Za-zА-Яа-яёЁ]+$/i })}
         className="mb-5 p-2 border border-1"
       />
       {errors.code && (

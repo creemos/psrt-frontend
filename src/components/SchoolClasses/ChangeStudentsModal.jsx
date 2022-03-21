@@ -8,16 +8,17 @@ const ChangeStudentsModal = ({ data, setShowChangeStudentsModal }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const updateFrames = async () => {
+    setIsLoading(true)
     await axios
       .get(`https://psrt-app.herokuapp.com/api/classes/${data.id}`)
       .then((res) => setSchoolClassStudents(res.data.students));
     await axios
       .get(`https://psrt-app.herokuapp.com/api/students/available_students`)
-      .then((res) => setAvailableStudents(res.data));
+      .then((res) => setAvailableStudents(res.data))
+    setIsLoading(false)
   };
 
   const addToSchoolClass = async (student) => {
-    setIsLoading(true);
     await axios.put(
       `https://psrt-app.herokuapp.com/api/classes/${data.id}/addstudent`,
       student,
@@ -29,15 +30,12 @@ const ChangeStudentsModal = ({ data, setShowChangeStudentsModal }) => {
       }
     );
     await updateFrames();
-    setIsLoading(false);
   };
 
   const removeFromSchoolClass = async (student) => {
-    setIsLoading(true);
     const updatedStudents = schoolClassStudents.filter(
       (item) => item === student
     );
-
     await axios.put(
       `https://psrt-app.herokuapp.com/api/classes/${data.id}/deletestudent`,
       updatedStudents,
@@ -49,14 +47,12 @@ const ChangeStudentsModal = ({ data, setShowChangeStudentsModal }) => {
       }
     );
     await updateFrames();
-    setIsLoading(false);
   };
 
-  useEffect(() => {
-    setIsLoading(true);
-    updateFrames();
-    setIsLoading(false);
-  }, []);
+useEffect(() => {
+  updateFrames()
+}, [])
+
 
   return (
     <div className="w-full flex justify-center">

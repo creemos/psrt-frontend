@@ -17,7 +17,7 @@ const StudentModal = ({ onSubmit, data, toBack }) => {
           placeholder="Имя"
           {...register("firstname", {
             required: true,
-            pattern: /^[a-zA-Zа-яА-Я]+$/i,
+            pattern: /^[a-zA-Zа-яА-ЯёЁ]+$/i,
           })}
           className="m-2 p-2 border border-1"
         />
@@ -28,7 +28,7 @@ const StudentModal = ({ onSubmit, data, toBack }) => {
           placeholder="Отчество"
           {...register("patronymic", {
             required: true,
-            pattern: /^[a-zA-Zа-яА-Я]+$/i,
+            pattern: /^[a-zA-Zа-яА-ЯёЁ]+$/i,
           })}
           className="m-2 p-2 border border-1"
         />
@@ -39,7 +39,7 @@ const StudentModal = ({ onSubmit, data, toBack }) => {
       <div className="flex flex-col">
         <input
           placeholder="Фамилия"
-          {...register("lastname", { required: true, pattern: /^[a-zA-Zа-яА-Я]+$/i })}
+          {...register("lastname", { required: true, pattern: /^[a-zA-Zа-яА-ЯёЁ]+$/i })}
           className="m-2 p-2 border border-1"
         />
         {errors.lastname && <span className="text-rose-500">Фамилия должна содержать только буквы!</span>}

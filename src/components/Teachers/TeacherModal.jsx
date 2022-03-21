@@ -20,7 +20,7 @@ const TeacherModal = ({ onSubmit, data, toBack }) => {
             placeholder={"Имя"}
             {...register("firstname", {
               required: true,
-              pattern: /^[a-zA-Zа-яА-Я]+$/i,
+              pattern: /^[a-zA-Zа-яА-ЯёЁ]+$/i,
             })}
             className="mb-2 p-2 border border-1"
           />
@@ -35,7 +35,7 @@ const TeacherModal = ({ onSubmit, data, toBack }) => {
             placeholder={"Отчество"}
             {...register("patronymic", {
               required: true,
-              pattern: /^[a-zA-Zа-яА-Я]+$/i,
+              pattern: /^[a-zA-Zа-яА-ЯёЁ]+$/i,
             })}
             className="mb-2 p-2 border border-1"
           />
@@ -50,7 +50,7 @@ const TeacherModal = ({ onSubmit, data, toBack }) => {
             placeholder={"Фамилия"}
             {...register("lastname", {
               required: true,
-              pattern: /^[a-zA-Zа-яА-Я]+$/i,
+              pattern: /^[a-zA-Zа-яА-ЯёЁ]+$/i,
             })}
             className="mb-2 p-2 border border-1"
           />
