@@ -6,7 +6,7 @@ const SchoolClassModal = ({ onSubmit, data, toBack }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: data
+    defaultValues: {year: data.year, code: data.code}
   });
 
   return (
@@ -15,7 +15,7 @@ const SchoolClassModal = ({ onSubmit, data, toBack }) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <input
-        placeholder={data.year ? data.year : "Год обучения"}
+        placeholder={"Год обучения"}
         {...register("year", { required: true, pattern: /^[0-9]+$/i })}
         className="mb-5 p-2 border border-1"
       />
@@ -25,7 +25,7 @@ const SchoolClassModal = ({ onSubmit, data, toBack }) => {
         </span>
       )}
       <input
-        placeholder={data.code ? data.code : "Мнемокод"}
+        placeholder={"Мнемокод"}
         {...register("code", { required: true, pattern: /^[A-Za-zА-Яа-я]+$/i })}
         className="mb-5 p-2 border border-1"
       />

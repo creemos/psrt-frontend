@@ -37,19 +37,25 @@ const Teachers = () => {
   };
 
   const fetchTeachers = async () => {
-    await axios.get("https://psrt-app.herokuapp.com/api/teachers").then((res) => {
-      filtrateTeachers(res.data);
-    });
+    await axios
+      .get("https://psrt-app.herokuapp.com/api/teachers")
+      .then((res) => {
+        filtrateTeachers(res.data);
+      });
   };
 
   const deleteTeacher = async (id) => {
-    setIsLoading(true)
-    await axios.put(`https://psrt-app.herokuapp.com/api/classes/find_relation`, id, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "content-type": "application/json",
-      },
-    });
+    setIsLoading(true);
+    await axios.put(
+      `https://psrt-app.herokuapp.com/api/classes/find_relation`,
+      id,
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "content-type": "application/json",
+        },
+      }
+    );
     await axios
       .delete(`https://psrt-app.herokuapp.com/api/teachers/${id}`)
       .then((res) => {
@@ -62,13 +68,13 @@ const Teachers = () => {
     setEditMode(true);
     await axios
       .get(`https://psrt-app.herokuapp.com/api/teachers/${id}`)
-      .then((res) => setCurrentTeacher(res.data))
+      .then((res) => setCurrentTeacher(res.data));
     setShowTeacherModal(true);
     fetchTeachers();
   };
 
   const onSubmit = async (data) => {
-    setIsLoading(true)
+    setIsLoading(true);
     if (!editMode) {
       await axios
         .post("https://psrt-app.herokuapp.com/api/teachers", data, {
@@ -94,7 +100,7 @@ const Teachers = () => {
       );
       setEditMode(false);
     }
-    await fetchTeachers()
+    await fetchTeachers();
     setShowTeacherModal(false);
   };
 
@@ -113,16 +119,18 @@ const Teachers = () => {
   }, [filter, sort]);
 
   useEffect(() => {
-    setCurrentTeacher({
-      id: "",
-    firstname: "",
-    patronymic: "",
-    lastname: "",
-    gender: "",
-    year: "",
-    subject: "",
-    })
-  }, [showTeacherModal])
+    if (!showTeacherModal) {
+      setCurrentTeacher({
+        id: "",
+        firstname: "",
+        patronymic: "",
+        lastname: "",
+        gender: "",
+        year: "",
+        subject: "",
+      });
+    }
+  }, [showTeacherModal]);
 
   return (
     <div className="w-3/4 flex flex-col items-center justify-between  pl-10">
@@ -221,7 +229,11 @@ const Teachers = () => {
           </button>
         </div>
       ) : (
-        <TeacherModal onSubmit={onSubmit} data={currentTeacher} toBack={setShowTeacherModal} />
+        <TeacherModal
+          onSubmit={onSubmit}
+          data={currentTeacher}
+          toBack={setShowTeacherModal}
+        />
       )}
     </div>
   );

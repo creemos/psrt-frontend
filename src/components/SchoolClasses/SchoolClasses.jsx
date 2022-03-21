@@ -123,11 +123,6 @@ const SchoolClasses = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showChangeStudentsModal, showChangeTeacherModal, isShowSchoolClassModal]);
 
-  useEffect(() => {
-    if (currentSchoolClass !== 1 && isShowSchoolClassModal === true) {
-      setIsLoading(false);
-    }
-  }, [currentSchoolClass, isShowSchoolClassModal]);
 
   useEffect(() => {
     if (!isShowSchoolClassModal) {
