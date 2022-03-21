@@ -82,7 +82,21 @@ const SchoolClasses = () => {
   };
 
   const onChangeTeacher = async (data) => {
-    await axios
+    console.log(data)
+    if (data.teacher === 'empty') {
+      await axios
+      .put(
+        `https://psrt-app.herokuapp.com/api/classes/clearteacher`,
+        currentSchoolClass.id,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "content-type": "application/json",
+          },
+        }
+      )
+    } else {
+      await axios
       .put(
         `https://psrt-app.herokuapp.com/api/classes/${currentSchoolClass.id}/addteacher`,
         data.teacher,
@@ -93,9 +107,7 @@ const SchoolClasses = () => {
           },
         }
       )
-      .catch(function (error) {
-        alert("Данный преподаватель уже назначен классным руководителем!");
-      });
+    }
     setShowChangeTeacherModal(false);
     fetchAllSchoolClasses();
   };
@@ -108,6 +120,7 @@ const SchoolClasses = () => {
   };
 
   const editStudents = (schoolClass) => {
+    setIsLoading(true)
     setCurrentSchoolClass(schoolClass);
     setShowChangeStudentsModal(true);
   };

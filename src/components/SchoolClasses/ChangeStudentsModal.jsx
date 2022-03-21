@@ -28,7 +28,7 @@ const ChangeStudentsModal = ({ data, setShowChangeStudentsModal }) => {
         },
       }
     );
-    updateFrames();
+    await updateFrames();
     setIsLoading(false);
   };
 
@@ -48,11 +48,12 @@ const ChangeStudentsModal = ({ data, setShowChangeStudentsModal }) => {
         },
       }
     );
-    updateFrames();
+    await updateFrames();
     setIsLoading(false);
   };
 
   useEffect(() => {
+    setIsLoading(true);
     updateFrames();
     setIsLoading(false);
   }, []);
@@ -113,14 +114,14 @@ const ChangeStudentsModal = ({ data, setShowChangeStudentsModal }) => {
               <div>В классе нет учеников!</div>
             )}
           </div>
-        </div>
-      )}
-       <button
+          <button
             className="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
             onClick={() => setShowChangeStudentsModal(false)}
           >
             Вернуться
           </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -40,9 +40,9 @@ const ChangeTeacherModal = ({ onSubmit, data }) => {
     <Loader />
   ) : (
     <form className="mt-5 border-1" onSubmit={handleSubmit(onSubmit)}>
-      <div>Выберите учителя</div>
-      <select {...register("teacher")} placeholder="Выберите учителя">
-        <option value={{}} className="border-2">
+      <div>Выберите учителя:</div>
+      <select {...register("teacher")} placeholder="Выберите учителя" className="py-2 px-4 w-full mt-3">
+        <option value={'empty'} className="border-2">
           Отсутствует
         </option>
         {availableTeachers.map((teacher) => {
@@ -58,7 +58,7 @@ const ChangeTeacherModal = ({ onSubmit, data }) => {
         })}
       </select>
       <input
-        className="mt-5 w-1/2  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="mt-5 w-1/2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         type="submit" value="Сохранить"/>
     </form>
   );
