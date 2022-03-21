@@ -49,7 +49,7 @@ const SchoolClasses = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
-    setIsLoading(true)
+    setIsLoading(true);
     if (!editMode) {
       await axios
         .post("https://psrt-app.herokuapp.com/api/classes", data, {
@@ -77,7 +77,7 @@ const SchoolClasses = () => {
       );
       setEditMode(false);
     }
-    setIsLoading(false)
+    setIsLoading(false);
     setIsShowSchoolClassModal(false);
   };
 
@@ -128,6 +128,18 @@ const SchoolClasses = () => {
       setIsLoading(false);
     }
   }, [currentSchoolClass, isShowSchoolClassModal]);
+
+  useEffect(() => {
+    if (!isShowSchoolClassModal) {
+      setCurrentSchoolClass({
+        id: "",
+        code: "",
+        year: "",
+        students: [],
+        teacher: {},
+      });
+    }
+  }, [isShowSchoolClassModal]);
 
   return (
     <div className="w-3/4 flex flex-col items-center justify-between pl-10">

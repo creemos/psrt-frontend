@@ -19,9 +19,11 @@ const Students = () => {
   });
 
   const fetchStudents = async () => {
-    await axios.get("https://psrt-app.herokuapp.com/api/students").then((res) => {
-      filtrateStudents(res.data);
-    });
+    await axios
+      .get("https://psrt-app.herokuapp.com/api/students")
+      .then((res) => {
+        filtrateStudents(res.data);
+      });
     setIsLoading(false);
   };
 
@@ -54,20 +56,19 @@ const Students = () => {
     setEditMode(true);
     await axios
       .get(`https://psrt-app.herokuapp.com/api/students/${id}`)
-      .then((res) => setCurrentStudent(res.data))
+      .then((res) => setCurrentStudent(res.data));
     setShowStudentModal(true);
   };
 
   const onSubmit = async (data) => {
     setIsLoading(true);
     if (!editMode) {
-      await axios
-        .post("https://psrt-app.herokuapp.com/api/students", data, {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "content-type": "application/json",
-          },
-        })
+      await axios.post("https://psrt-app.herokuapp.com/api/students", data, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "content-type": "application/json",
+        },
+      });
     } else {
       await axios.put(
         `https://psrt-app.herokuapp.com/api/students/${currentStudent.studentId}`,
@@ -93,9 +94,16 @@ const Students = () => {
   useEffect(() => {
     if (showStudentModal === false) {
       fetchStudents();
+      setCurrentStudent({
+        studentId: "",
+        firstname: "",
+        patronymic: "",
+        lastname: "",
+        gender: "",
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter, sort]);
+  }, [filter, sort, showStudentModal]);
 
   return (
     <div className="w-3/4 flex flex-col items-center justify-between pl-10 ">
@@ -179,7 +187,11 @@ const Students = () => {
           </button>
         </div>
       ) : (
-        <StudentModal onSubmit={onSubmit} data={currentStudent} toBack={setShowStudentModal}/>
+        <StudentModal
+          onSubmit={onSubmit}
+          data={currentStudent}
+          toBack={setShowStudentModal}
+        />
       )}
     </div>
   );

@@ -112,6 +112,18 @@ const Teachers = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, sort]);
 
+  useEffect(() => {
+    setCurrentTeacher({
+      id: "",
+    firstname: "",
+    patronymic: "",
+    lastname: "",
+    gender: "",
+    year: "",
+    subject: "",
+    })
+  }, [showTeacherModal])
+
   return (
     <div className="w-3/4 flex flex-col items-center justify-between  pl-10">
       {isLoading ? (
