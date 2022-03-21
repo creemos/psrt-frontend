@@ -1,14 +1,15 @@
 import { useForm } from "react-hook-form";
 
 const StudentModal = ({ onSubmit, data, toBack }) => {
-  console.log(data)
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     defaultValues: data
   });
+
+
   return (
     <form className="mt-5 border-1 flex flex-col w-1/2" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col">

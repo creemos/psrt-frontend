@@ -5,7 +5,9 @@ const SchoolClassModal = ({ onSubmit, data, toBack }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: data
+  });
 
   return (
     <form

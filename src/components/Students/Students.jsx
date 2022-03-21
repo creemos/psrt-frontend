@@ -46,17 +46,16 @@ const Students = () => {
       .delete(`https://psrt-app.herokuapp.com/api/students/${id}`)
       .then((res) => {
         fetchStudents();
-        console.log(`User with no.${id} deleted!`);
       });
   };
 
-  const editStudent = (id) => {
+  const editStudent = async (id) => {
     console.log(`Select student no.${id}`);
     setEditMode(true);
-    axios
+    await axios
       .get(`https://psrt-app.herokuapp.com/api/students/${id}`)
       .then((res) => setCurrentStudent(res.data))
-      .then(setShowStudentModal(true));
+    setShowStudentModal(true);
   };
 
   const onSubmit = async (data) => {
@@ -69,12 +68,6 @@ const Students = () => {
             "content-type": "application/json",
           },
         })
-        .then((res) =>
-          console.log(
-            `Adding user ${res.data.firstname} no.${res.data.studentId}`
-          )
-        )
-        .catch((err) => console.log(err));
     } else {
       await axios.put(
         `https://psrt-app.herokuapp.com/api/students/${currentStudent.studentId}`,

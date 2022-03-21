@@ -5,7 +5,9 @@ const TeacherModal = ({ onSubmit, data, toBack }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: data
+  });
   return (
     <form
       className="mt-5 ml-10 border-1 flex flex-col items-center w-1/2"
@@ -15,7 +17,7 @@ const TeacherModal = ({ onSubmit, data, toBack }) => {
         <div className="flex flex-col">
           <input
             name="firstname"
-            placeholder={data.firstname ? data.firstname : "Имя"}
+            placeholder={"Имя"}
             {...register("firstname", {
               required: true,
               pattern: /^[a-zA-Zа-яА-Я]+$/i,
@@ -30,7 +32,7 @@ const TeacherModal = ({ onSubmit, data, toBack }) => {
         </div>
         <div className="flex flex-col">
           <input
-            placeholder={data.patronymic ? data.patronymic : "Отчество"}
+            placeholder={"Отчество"}
             {...register("patronymic", {
               required: true,
               pattern: /^[a-zA-Zа-яА-Я]+$/i,
@@ -45,7 +47,7 @@ const TeacherModal = ({ onSubmit, data, toBack }) => {
         </div>
         <div className="flex flex-col">
           <input
-            placeholder={data.lastname ? data.lastname : "Фамилия"}
+            placeholder={"Фамилия"}
             {...register("lastname", {
               required: true,
               pattern: /^[a-zA-Zа-яА-Я]+$/i,
@@ -63,7 +65,7 @@ const TeacherModal = ({ onSubmit, data, toBack }) => {
           <option value="муж.">муж.</option>
         </select>
         <input
-          placeholder={data.year ? data.year : "Год рождения"}
+          placeholder={"Год рождения"}
           {...register("year", { required: true, pattern: /^[0-9]+$/i })}
           className="mt-5 mb-2 p-2 border border-1"
         />

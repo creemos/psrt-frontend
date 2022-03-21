@@ -58,13 +58,12 @@ const Teachers = () => {
     fetchTeachers();
   };
 
-  const editTeacher = (id) => {
-    console.log(`Select teacher no.${id}`);
+  const editTeacher = async (id) => {
     setEditMode(true);
-    axios
+    await axios
       .get(`https://psrt-app.herokuapp.com/api/teachers/${id}`)
       .then((res) => setCurrentTeacher(res.data))
-      .then(setShowTeacherModal(true));
+    setShowTeacherModal(true);
     fetchTeachers();
   };
 

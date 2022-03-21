@@ -12,7 +12,7 @@ const SchoolClasses = () => {
   const [editMode, setEditMode] = useState(false);
   const [showChangeTeacherModal, setShowChangeTeacherModal] = useState(false);
   const [showChangeStudentsModal, setShowChangeStudentsModal] = useState(false);
-  const [sort, setSort] = useState("year")
+  const [sort, setSort] = useState("year");
   const [currentSchoolClass, setCurrentSchoolClass] = useState({
     id: "",
     code: "",
@@ -24,26 +24,22 @@ const SchoolClasses = () => {
   const fetchAllSchoolClasses = async () => {
     await axios
       .get("https://psrt-app.herokuapp.com/api/classes")
-      .then((res) => setAllSchoolClasses(res.data))
-      setIsLoading(false);
+      .then((res) => setAllSchoolClasses(res.data));
+    setIsLoading(false);
   };
 
-
-  const editSchoolClass = (id) => {
-    console.log(`Select class no.${id}`);
+  const editSchoolClass = async (id) => {
     setIsLoading(true);
     setEditMode(true);
-
-    axios
+    await axios
       .get(`https://psrt-app.herokuapp.com/api/classes/${id}`)
-      .then((res) => setCurrentSchoolClass(res.data))
-      .then(console.log(currentSchoolClass))
-      .then(setIsShowSchoolClassModal(true));
+      .then((res) => setCurrentSchoolClass(res.data));
+    setIsShowSchoolClassModal(true);
   };
 
   const deleteSchoolClass = async (id) => {
     setIsLoading(true);
-    
+
     await axios.delete(`https://psrt-app.herokuapp.com/api/classes/${id}`);
 
     console.log(`Class with no.${id} deleted!`);
@@ -114,14 +110,13 @@ const SchoolClasses = () => {
     setShowChangeStudentsModal(true);
   };
 
-  
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     fetchAllSchoolClasses();
   }, []);
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     fetchAllSchoolClasses();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showChangeStudentsModal, showChangeTeacherModal, isShowSchoolClassModal]);
@@ -137,83 +132,103 @@ const SchoolClasses = () => {
       {isLoading ? (
         <Loader />
       ) : isShowSchoolClassModal ? (
-        <SchoolClassModal onSubmit={onSubmit} data={currentSchoolClass} toBack={setIsShowSchoolClassModal}/>
+        <SchoolClassModal
+          onSubmit={onSubmit}
+          data={currentSchoolClass}
+          toBack={setIsShowSchoolClassModal}
+        />
       ) : showChangeTeacherModal ? (
         <ChangeTeacherModal
           onSubmit={onChangeTeacher}
           data={currentSchoolClass}
         />
       ) : showChangeStudentsModal ? (
-        <ChangeStudentsModal data={currentSchoolClass} setShowChangeStudentsModal={setShowChangeStudentsModal}/>
+        <ChangeStudentsModal
+          data={currentSchoolClass}
+          setShowChangeStudentsModal={setShowChangeStudentsModal}
+        />
       ) : (
         <div className="w-full flex flex-col align-center justify-center">
           <table className="text-center border-2 mt-5 w-full">
             <thead className="bg-slate-400">
               <tr>
-                <th className="cursor-pointer" onClick={() => setSort("year")}>Год обучения</th>
-                <th className="cursor-pointer" onClick={() => setSort("code")}>Мнемокод</th>
+                <th className="cursor-pointer" onClick={() => setSort("year")}>
+                  Год обучения
+                </th>
+                <th className="cursor-pointer" onClick={() => setSort("code")}>
+                  Мнемокод
+                </th>
                 <th className=" w-1/4">Классный руководитель</th>
                 <th className=" w-1/4">Список учеников</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {allSchoolClasses.sort((a, b) => a[sort] > b[sort]? 1 : -1).map((schoolClass) => {
-                return (
-                  <tr key={Math.random(10)}>
-                    <td className="border border-slate-300">{schoolClass.year}</td>
-                    <td className="border border-slate-300">{schoolClass.code}</td>
-                    <td className="mt-auto mb-0 border border-slate-300">
-                      <div className="flex justify-center flex-col p-3">
-                        {schoolClass.teacher ? (
-                          `${schoolClass.teacher.firstname} ${schoolClass.teacher.patronymic} ${schoolClass.teacher.lastname}`
-                        ) : null} 
+              {allSchoolClasses
+                .sort((a, b) => (a[sort] > b[sort] ? 1 : -1))
+                .map((schoolClass) => {
+                  return (
+                    <tr key={Math.random(10)}>
+                      <td className="border border-slate-300">
+                        {schoolClass.year}
+                      </td>
+                      <td className="border border-slate-300">
+                        {schoolClass.code}
+                      </td>
+                      <td className="mt-auto mb-0 border border-slate-300">
+                        <div className="flex justify-center flex-col p-3">
+                          {schoolClass.teacher
+                            ? `${schoolClass.teacher.firstname} ${schoolClass.teacher.patronymic} ${schoolClass.teacher.lastname}`
+                            : null}
                           <button
                             className="self-center bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded mt-5"
                             onClick={() => editTeacher(schoolClass.id)}
                           >
                             Редактировать
                           </button>
-                      </div>
-                    </td>
-                    <td className="border border-slate-300 pb-3">
-                      <ul>
-                        {schoolClass.students.map((student) => {
-                          return (
-                            <li  key={Math.random(10)} className="m-2 border border-slate-300">
-                              {`${student.firstname} ${student.patronymic} ${student.lastname}`}
-                            </li>
-                          );
-                        })}
+                        </div>
+                      </td>
+                      <td className="border border-slate-300 pb-3">
+                        <ul>
+                          {schoolClass.students.map((student) => {
+                            return (
+                              <li
+                                key={Math.random(10)}
+                                className="m-2 border border-slate-300"
+                              >
+                                {`${student.firstname} ${student.patronymic} ${student.lastname}`}
+                              </li>
+                            );
+                          })}
+                          <button
+                            className="self-center bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded mt-3"
+                            onClick={() => editStudents(schoolClass)}
+                          >
+                            Редактировать
+                          </button>
+                        </ul>
+                      </td>
+                      <td className="border border-slate-300">
                         <button
-                          className="self-center bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded mt-3"
-                          onClick={() => editStudents(schoolClass)}
+                          className="self-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                          onClick={() => {
+                            editSchoolClass(schoolClass.id);
+                          }}
                         >
-                          Редактировать
+                          Изменить
                         </button>
-                      </ul>
-                    </td>
-                    <td className="border border-slate-300">
-                      <button
-                        className="self-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                        onClick={() => {
-                          editSchoolClass(schoolClass.id);
-                        }}
-                      >
-                        Изменить
-                      </button>
-                      <button
-                        className="self-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                        onClick={() => {
-                          deleteSchoolClass(schoolClass.id);
-                        }}
-                      >
-                        Удалить
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+                        <button
+                          className="self-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                          onClick={() => {
+                            deleteSchoolClass(schoolClass.id);
+                          }}
+                        >
+                          Удалить
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
           <button
