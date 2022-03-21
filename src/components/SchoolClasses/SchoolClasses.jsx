@@ -82,7 +82,6 @@ const SchoolClasses = () => {
   };
 
   const onChangeTeacher = async (data) => {
-    console.log(data)
     if (data.teacher === 'empty') {
       await axios
       .put(
@@ -162,6 +161,7 @@ const SchoolClasses = () => {
         <ChangeTeacherModal
           onSubmit={onChangeTeacher}
           data={currentSchoolClass}
+          toBack={setShowChangeTeacherModal}
         />
       ) : showChangeStudentsModal ? (
         <ChangeStudentsModal
