@@ -98,7 +98,7 @@ const Students = () => {
   }, [filter, sort]);
 
   return (
-    <div className="w-3/4 flex flex-col items-center justify-between pl-10">
+    <div className="w-3/4 flex flex-col items-center justify-between pl-10 ">
       {isLoading ? (
         <Loader />
       ) : showStudentModal === false ? (
@@ -109,7 +109,7 @@ const Students = () => {
             placeholder="Поиск.."
             onChange={(e) => searchHandler(e)}
           />
-          <table className="text-center border-2 mt-5">
+          <table className="text-center mt-5 border-solid border-2 border-slate-300">
             <thead className="bg-slate-400">
               <tr>
                 <th

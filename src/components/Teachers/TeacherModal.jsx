@@ -6,7 +6,7 @@ const TeacherModal = ({ onSubmit, data, toBack }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: data
+    defaultValues: data,
   });
   return (
     <form
@@ -60,7 +60,10 @@ const TeacherModal = ({ onSubmit, data, toBack }) => {
             </span>
           )}
         </div>
-        <select {...register("gender")} placeholder="Пол" className="mt-5">
+        <select {...register("gender")} placeholder="Пол" className="mt-5 p-2">
+          <option disabled selected value="">
+            Пол
+          </option>
           <option value="жен.">жен.</option>
           <option value="муж.">муж.</option>
         </select>
@@ -74,7 +77,10 @@ const TeacherModal = ({ onSubmit, data, toBack }) => {
             Год рождения не может содержать буквы!
           </span>
         )}
-        <select {...register("subject")} placeholder="Предмет" className="mb-5">
+        <select {...register("subject")} placeholder="Предмет" className="mb-5 p-2">
+          <option disabled selected value="">
+            Предмет
+          </option>
           <option value="Русский язык">Русский язык</option>
           <option value="Математика">Математика</option>
           <option value="Литература">Литература</option>

@@ -124,7 +124,7 @@ const Teachers = () => {
             placeholder="Поиск.."
             onChange={(e) => searchHandler(e)}
           />
-          <table className="text-center border-2 mt-5">
+          <table className="text-center border-solid border-2 border-slate-300 mt-5">
             <thead className="bg-slate-400">
               <tr>
                 <th

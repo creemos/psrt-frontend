@@ -49,6 +49,7 @@ const SchoolClasses = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
+    setIsLoading(true)
     if (!editMode) {
       await axios
         .post("https://psrt-app.herokuapp.com/api/classes", data, {
@@ -76,6 +77,7 @@ const SchoolClasses = () => {
       );
       setEditMode(false);
     }
+    setIsLoading(false)
     setIsShowSchoolClassModal(false);
   };
 
@@ -149,7 +151,7 @@ const SchoolClasses = () => {
         />
       ) : (
         <div className="w-full flex flex-col align-center justify-center">
-          <table className="text-center border-2 mt-5 w-full">
+          <table className="text-center border-solid border-2 border-slate-300 mt-5 w-full">
             <thead className="bg-slate-400">
               <tr>
                 <th className="cursor-pointer" onClick={() => setSort("year")}>

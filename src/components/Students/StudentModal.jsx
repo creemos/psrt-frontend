@@ -11,7 +11,7 @@ const StudentModal = ({ onSubmit, data, toBack }) => {
 
 
   return (
-    <form className="mt-5 border-1 flex flex-col w-1/2" onSubmit={handleSubmit(onSubmit)}>
+    <form className="mt-5 border-2 flex flex-col w-1/2" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col">
         <input
           placeholder="Имя"
@@ -45,7 +45,8 @@ const StudentModal = ({ onSubmit, data, toBack }) => {
         {errors.lastname && <span className="text-rose-500">Фамилия должна содержать только буквы!</span>}
       </div>
 
-      <select {...register("gender")} placeholder="Пол" className="mt-5 w-1/6 self-center">
+      <select {...register("gender")} placeholder="Пол" className="mt-5 w-1/6 self-center p-2">
+        <option disabled selected value="">Пол</option>
         <option value="жен.">жен.</option>
         <option value="муж.">муж.</option>
       </select>
