@@ -61,7 +61,7 @@ const TeacherModal = ({ onSubmit, data, toBack }) => {
           )}
         </div>
         <select {...register("gender")} placeholder="Пол" className="mt-5 p-2">
-          <option disabled selected value="">
+          <option disabled value="">
             Пол
           </option>
           <option value="жен.">жен.</option>
@@ -78,7 +78,7 @@ const TeacherModal = ({ onSubmit, data, toBack }) => {
           </span>
         )}
         <select {...register("subject")} placeholder="Предмет" className="mb-5 p-2">
-          <option disabled selected value="">
+          <option disabled value="">
             Предмет
           </option>
           <option value="Русский язык">Русский язык</option>

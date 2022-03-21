@@ -46,7 +46,7 @@ const StudentModal = ({ onSubmit, data, toBack }) => {
       </div>
 
       <select {...register("gender")} placeholder="Пол" className="mt-5 w-1/6 self-center p-2">
-        <option disabled selected value="">Пол</option>
+        <option disabled value="">Пол</option>
         <option value="жен.">жен.</option>
         <option value="муж.">муж.</option>
       </select>
